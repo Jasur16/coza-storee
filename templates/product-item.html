@@ -1,0 +1,79 @@
+{% load static my_tags i18n %}
+<!-- Block2 -->
+<div class="block2">
+    {% if not user.is_authenticated %}
+        <div style="padding-top: 18%;" class="modal fade" id="exampleModalTogglee" aria-hidden="true"
+             aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div>
+                        <div class="text-center p-4 modal-content">
+                            <h3 class="p-2 modal-content bg-danger text-white">{% translate 'Сначала нужно войти!' %}</h3>
+                            <h4 class="p-3">{% translate 'У вас есть аккаунт?' %}</h4>
+                            <span><a class="" href="{% url 'user:login' %}">{% translate 'да' %}</a> {% translate 'или же' %} <a
+                                    href="{% url 'user:registration' %}">{% translate 'нет' %}</a></span>
+                        </div>
+                        <div style="font-size: 20px" class="my_account text-center btn_a p-4">
+                            <a class="pr-2" href="{% url 'user:login' %}">
+                                {% translate 'Авторизоваться' %}
+                            </a>
+                            <a class="pl-2" href="{% url 'user:registration' %}">
+                                {% translate 'Регистрация' %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="text-dark hov-cl1" data-bs-toggle="modal" href="#exampleModalTogglee"
+           role="button">{% translate 'Добавить в корзину' %}</a>
+        </a>
+    {% else %}
+
+        <a href="{% url 'shop:cart' id=product.pk %}?next={{ request.path }}"
+           class="text-danger hov-cl1">
+            {% if product|is_cart:request %}
+                {% translate 'Удалить из корзины' %}</a>
+            {% else %}
+                <a href="{% url 'shop:cart' id=product.pk %}?next={{ request.path }}"
+                   class="text-primary hov-cl1">
+                {% translate 'Добавить в корзину' %}</a>
+            {% endif %}
+    {% endif %}
+    <div class="block2-pic hov-img0 {% if product.new %} label-new {% endif %}" data-label="New">
+        <a href="{% url 'shop:detail' pk=product.pk %}">
+            <img style="height: 400px" src="{{ product.main_image.url }}" alt="IMG-PRODUCT">
+        </a>
+
+        <a href=""
+           class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1 text-center">
+            {% translate 'Быстрый просмотр' %}
+        </a>
+    </div>
+    <div class="block2-txt flex-w flex-t p-t-14">
+        <div class="block2-txt-child1 flex-col-l ">
+            <a href="{% url 'shop:detail' pk=product.pk %}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                {{ product.title }}
+            </a>
+            <span class="stext-105 cl3">${{ product.real_price }} {% if product.is_discount %}
+                <del
+                        class="text-secondary pl-2">{{ product.price }}</del> {% endif %}</span>
+        </div>
+        {% if user.is_authenticated %}
+            <div class="block2-txt-child2 flex-r p-t-3">
+                {% if product|is_wishlist:request %}
+                    <li class="">
+                        <a href="{% url 'shop:wishlist' pk=product.pk %}?next={{ request.path }}"><img
+                                src="{% static 'images/icons/icon-heart-02.png' %}" alt=""></a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{% url 'shop:wishlist' pk=product.pk %}?next={{ request.path }}"><img
+                                src="{% static 'images/icons/icon-heart-01.png' %}" alt=""></a>
+                    </li>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</div>

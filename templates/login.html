@@ -1,0 +1,34 @@
+{% extends 'layouts/base.html' %}
+{% load static i18n %}
+{% block account_css %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+{% endblock %}
+{% block content %}
+<div class="wrapper bg-image" style="background-image: url({% static 'images/blur.jpg' %}); width: 100%; ">
+    <div class="inner">
+        <div class="image-holder">
+            <img style="width: 100%;" src="{% static 'images/image-u.jpg' %}" alt="">
+        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <h3>{% translate 'Вход' %}</h3>
+            <div class="form-wrapper">
+                {{ form.username }}
+{#                <input name="username" type="text" placeholder="{% translate 'Имя пользователя' %}" class="form-control">#}
+                <i class="zmdi zmdi-account"></i>
+            </div>
+            {{ form.errors.username }}
+            <div class="form-wrapper">
+                {{ form.password }}
+{#                <input name="password" type="password" placeholder="{% translate 'Пароль' %}" class="form-control">#}
+                <i class="zmdi zmdi-lock"></i>
+            </div>
+            <span style="color: #ff0000; font-weight: bold;">{{ form.errors.password }}</span>
+            <a href="{% url 'user:registration' %}">{% translate 'Зарегистрироваться' %}</a>
+            <button>{% translate 'Авторизоваться' %}
+                <i class="zmdi zmdi-arrow-right"></i>
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
