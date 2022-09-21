@@ -9,12 +9,18 @@
             </div>
             <div class="right-top-bar flex-w h-full">
                 {% if user.is_authenticated %}
+                    <a class="flex-c-m trans-04 p-lr-25" href="{% url 'orders:history' %}">
+                        {% translate 'История заказов' %}
+                    </a>
+                    <a class="flex-c-m trans-04 p-lr-25" href="{% url 'user:profile' %}">
+                        {% translate 'Мой Профиль' %}
+                    </a>
                     <a class="flex-c-m trans-04 p-lr-25" href="{% url 'user:logout' %}">
                         {% translate 'Выйти' %}
                     </a>
                 {% else %}
                     <a href="{% url 'user:my-account' %}" class="flex-c-m trans-04 p-lr-25">
-                        {% translate 'Мой Профиль' %}
+                        {% translate 'Мой Аккаунт' %}
                     </a>
                 {% endif %}
                 {% for lang in LANGUAGES %}
@@ -49,7 +55,7 @@
 
                     <li class="label1 {% if request.path|slice:"4:" == 'shopping-cart/' %}active-menu{% endif %}"
                         data-label1="hot">
-                        <a href="{% url 'pages:cart' %}">{% translate 'Корзина покупателя' %}</a>
+                        <a href="{% url 'orders:cart' %}">{% translate 'Корзина покупателя' %}</a>
                     </li>
 
                     <li class="{% if request.path|slice:"4:" == 'blogs/' %}active-menu{% endif %}">
@@ -224,7 +230,7 @@
         </li>
 
         <li>
-            <a href="{% url 'pages:cart' %}" class="label1 rs1"
+            <a href="{% url 'orders:cart' %}" class="label1 rs1"
                data-label1="hot {% if request.path|slice:"4:" == 'features/' %}text-dark{% endif %}">{% translate 'Корзина покупателя' %}</a>
         </li>
 

@@ -1,11 +1,11 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.db import models, IntegrityError
 from django.db.models import Sum
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from ckeditor_uploader.fields import RichTextUploadingField
-
-UserModel = get_user_model()
+from user.models import UserModel
 
 
 class BarCategoryModel(models.Model):
@@ -142,6 +142,13 @@ class ProductModel(models.Model):
         if not cart:
             return 0, 0.0
         return len(cart), ProductModel.objects.filter(id__in=cart).aggregate(Sum('real_price'))['real_price__sum']
+
+    @staticmethod
+    def get_cart_objects(request):
+        cart = request.session.get('cart', [])
+        if not cart:
+            return None
+        return ProductModel.objects.filter(id__in=cart)
 
     def is_discount(self):
         return bool(self.discount)

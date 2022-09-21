@@ -119,7 +119,3 @@ def index(request):
     return render(request, 'contact.html', context={
         'form': form,
     })
-
-
-class ShoppingCart(TemplateView):
-    template_name = 'shopping-cart.html'
