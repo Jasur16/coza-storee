@@ -1,7 +1,7 @@
 from django.db.models import Sum
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import ListView, CreateView
-
+import random
 from orders.forms import CheckoutForm
 from orders.models import OrderHistoryModel
 from shop.models import ProductModel
