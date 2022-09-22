@@ -1,9 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import MinLengthValidator
 import random
 
 
 class UserModel(AbstractUser):
+
     class Meta:
         verbose_name = 'user'
         verbose_name_plural = 'users'

@@ -2,6 +2,7 @@ from django import forms
 from .models import UserModel, ProfileModel
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import ValidationError
+from django.core.validators import MinLengthValidator
 
 
 class ProfileForm(forms.ModelForm):
