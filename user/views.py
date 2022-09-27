@@ -1,6 +1,7 @@
 from django.core.validators import ValidationError
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import TemplateView, UpdateView
+from shop.models import ProductModel
 from .forms import RegistrationForm, LoginForm, ProfileForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
