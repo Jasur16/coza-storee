@@ -48,7 +48,6 @@ class ShopView(ListView):
         data['cart_product'] = ProductModel.get_cart_objects(self.request)
         data['model_image'] = ShopDetailImageModel.objects.all()
         data['product_modal'] = ProductModel.objects.all()
-        data['orders'] = ProductModel.objects.filter(wishlistmodel__user_id=self.request.user)
         return data
 
 

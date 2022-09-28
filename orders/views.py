@@ -14,11 +14,6 @@ class ShoppingCart(ListView):
         products = ProductModel.get_cart_objects(self.request)
         return products
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        data = super().get_context_data()
-        data['orders'] = ProductModel.objects.filter(wishlistmodel__user_id=self.request.user)
-        return data
-
 
 class CheckoutView(CreateView):
     form_class = CheckoutForm

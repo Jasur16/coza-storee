@@ -42,7 +42,6 @@ class HomeView(ListView):
         data['colors'] = ColorModel.objects.all()
         data['products'] = ProductModel.objects.all()
         data['posts'] = PostModel.objects.order_by('-pk')[:3]
-        data['orders'] = ProductModel.objects.filter(wishlistmodel__user_id=self.request.user)
         return data
 
 
@@ -90,7 +89,6 @@ class AboutView(ListView):
         data = super().get_context_data()
         data['abouts'] = AboutModel.objects.all()
         data['bar_categories'] = BarCategoryModel.objects.all()
-        data['orders'] = ProductModel.objects.filter(wishlistmodel__user_id=self.request.user)
         return data
 
 
